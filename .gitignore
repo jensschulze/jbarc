@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.DS_Store
+.idea
+*.iws
+/vendor
+/jpdf/tcpdf_barcodes_1d.php
+/src/Jbarc/tcpdf_barcodes_1d.php
