@@ -6,10 +6,9 @@
  * Time: 20:51
  */
 
-namespace JbarcTest\Process;
+namespace Jbarc\Barcode\Process;
 
 
-use Jbarc\Barcode\Process\ZeroPaddingProcess;
 use PHPUnit\Framework\TestCase;
 
 class ZeroPaddingProcessTest extends TestCase

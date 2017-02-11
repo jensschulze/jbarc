@@ -6,10 +6,9 @@
  * Time: 20:51
  */
 
-namespace JbarcTest\Process;
+namespace Jbarc\Barcode\Process;
 
 
-use Jbarc\Barcode\Process\NoopProcess;
 use PHPUnit\Framework\TestCase;
 
 class NoopProcessTest extends TestCase
@@ -18,6 +17,7 @@ class NoopProcessTest extends TestCase
      * @var NoopProcess
      */
     private $process;
+
 
     public function setUp()
     {
@@ -28,8 +28,10 @@ class NoopProcessTest extends TestCase
     /**
      * @test
      */
-    public function processPositive() {
+    public function processPositive()
+    {
         $input = 'testdata';
-        $this-> assertSame($input, $this->process->getProcessedData($input));
+
+        $this->assertSame($input, $this->process->getProcessedData($input));
     }
 }
