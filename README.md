@@ -1,7 +1,5 @@
 Jbarc
 ====
-[![GitHub tag](https://github.com/jensschulze/jbarc)](https://github.com/jensschulze/jbarc)
-
 Master: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=master)](https://travis-ci.org/jensschulze/jbarc)
 
 Develop: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=develop)](https://travis-ci.org/jensschulze/jbarc)
