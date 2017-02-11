@@ -1,6 +1,7 @@
 Jbarc
 ====
-Master branch: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=develop)](https://travis-ci.org/jensschulze/jbarc)
+Master: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=master)](https://travis-ci.org/jensschulze/jbarc)
+Develop: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=develop)](https://travis-ci.org/jensschulze/jbarc)
 
 * **category**    Library
 * **package**     jensschulze/jbarc
