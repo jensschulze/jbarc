@@ -1,6 +1,6 @@
 Jbarc
 ====
-[![GitHub tag](https://img.shields.io/github/tag/strongloop/express.svg)](https://github.com/jensschulze/jbarc)
+[![GitHub tag](https://github.com/jensschulze/jbarc)](https://github.com/jensschulze/jbarc)
 
 Master: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=master)](https://travis-ci.org/jensschulze/jbarc)
 
