@@ -1,6 +1,9 @@
 Jbarc
 ====
+[![GitHub tag](https://img.shields.io/github/tag/strongloop/express.svg)](https://github.com/jensschulze/jbarc)
+
 Master: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=master)](https://travis-ci.org/jensschulze/jbarc)
+
 Develop: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=develop)](https://travis-ci.org/jensschulze/jbarc)
 
 * **category**    Library
