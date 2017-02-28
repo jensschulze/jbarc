@@ -18,4 +18,7 @@ interface Color
 
 
     public function getBlue();
+
+
+    public function __toString();
 }

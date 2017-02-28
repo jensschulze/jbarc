@@ -12,7 +12,7 @@ namespace Jbarc\Color;
 use Jbarc\Exception\InvalidArgumentException;
 use Jbarc\Exception\OutOfBoundsException;
 
-class RgbColor implements Color
+class RgbColor extends AbstractColor
 {
     /**
      * @var int
@@ -66,5 +66,15 @@ class RgbColor implements Color
         $this->r = $r;
         $this->g = $g;
         $this->b = $b;
+    }
+
+
+    public function __toString()
+    {
+        $r = $this->formatHex($this->r);
+        $g = $this->formatHex($this->g);
+        $b = $this->formatHex($this->b);
+
+        return "#{$r}{$g}{$b}";
     }
 }
