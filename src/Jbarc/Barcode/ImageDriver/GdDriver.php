@@ -39,9 +39,9 @@ class GdDriver implements Driver
     /**
      * {@inheritdoc}
      */
-    public function addRectangle($x1, $y1, $x2, $y2)
+    public function addRectangle($x1, $y1, $width, $height)
     {
-        imagefilledrectangle($this->image, $x1, $y1, $x2, $y2, $this->foregroundColor);
+        imagefilledrectangle($this->image, $x1, $y1, $width - 1, $height - 1, $this->foregroundColor);
     }
 
 

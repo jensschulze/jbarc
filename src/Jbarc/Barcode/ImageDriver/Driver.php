@@ -24,10 +24,10 @@ interface Driver
     /**
      * @param int $x1
      * @param int $y1
-     * @param int $x2
-     * @param int $y2
+     * @param int $width
+     * @param int $height
      */
-    public function addRectangle($x1, $y1, $x2, $y2);
+    public function addRectangle($x1, $y1, $width, $height);
 
 
     /**
