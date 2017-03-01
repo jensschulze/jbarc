@@ -13,7 +13,7 @@ use Jbarc\Barcode\Barcode;
 use Jbarc\Barcode\ImageDriver\Driver;
 use Jbarc\Color\Color;
 
-class PngRenderer implements Renderer
+class BarcodeRenderer implements Renderer
 {
     /**
      * @var Driver
@@ -43,7 +43,7 @@ class PngRenderer implements Renderer
                 $y         = round(($bar->getTopPosition() * $height / $barcode->getMaxHeight()), 3);
 
                 // draw a vertical bar
-                $this->driver->addRectangle($x, $y, ($x + $barWidth - 1), ($y + $barHeight - 1));
+                $this->driver->addRectangle($x, $y, ($barWidth), ($barHeight));
             }
 
             $x += $barWidth;
