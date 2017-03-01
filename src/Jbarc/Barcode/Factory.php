@@ -11,16 +11,19 @@ namespace Jbarc\Barcode;
 
 use Jbarc\Barcode\Generator\Code39;
 use Jbarc\Barcode\Generator\Ean13;
+use Jbarc\Barcode\ImageDriver\GdDriver;
+use Jbarc\Barcode\ImageDriver\ImagickDriver;
+use Jbarc\Barcode\ImageDriver\SvgXmlWriterDriver;
 use Jbarc\Barcode\Process\ChainProcess;
 use Jbarc\Barcode\Process\Code39Checksum;
 use Jbarc\Barcode\Process\Code39ExtendedProcess;
 use Jbarc\Barcode\Process\UppercaseProcess;
 use Jbarc\Barcode\Process\ZeroPaddingProcess;
+use Jbarc\Barcode\Renderer\BarcodeRenderer;
 use Jbarc\Color\Color;
 use Jbarc\Color\RgbColor;
 use Jbarc\Exception\ExtensionNotFoundException;
 use Jbarc\Exception\InvalidArgumentException;
-use Jbarc\Barcode\Renderer\PngRenderer;
 
 class Factory
 {
@@ -205,23 +208,26 @@ class Factory
         $height = 30,
         Color $color = null
     ) {
-        switch (true) {
-            case (extension_loaded('imagick')):
-                $specificDriver = '\\Jbarc\\Barcode\\ImageDriver\\ImagickDriver';
-                break;
-            case (function_exists('imagecreate')):
-                $specificDriver = '\\Jbarc\\Barcode\\ImageDriver\\GdDriver';
-                break;
-            default:
-                throw new ExtensionNotFoundException(
-                    'Did not find Imagick or GD PHP extension'
-                );
-        }
 
         switch (strtolower($type)) {
             case 'png':
-                $driver   = new $specificDriver();
-                $renderer = new PngRenderer($driver);
+                switch (true) {
+                    case (extension_loaded('imagick')):
+                        $driver = new ImagickDriver;
+                        break;
+                    case (function_exists('imagecreate')):
+                        $driver = new GdDriver;
+                        break;
+                    default:
+                        throw new ExtensionNotFoundException(
+                            'Did not find Imagick or GD PHP extension'
+                        );
+                }
+                $renderer = new BarcodeRenderer($driver);
+                break;
+            case 'svg':
+                $driver = new SvgXmlWriterDriver(new \XMLWriter());
+                $renderer = new BarcodeRenderer($driver);
                 break;
             default:
                 throw new InvalidArgumentException(

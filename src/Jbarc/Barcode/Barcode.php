@@ -27,4 +27,10 @@ interface Barcode
      * @return int
      */
     public function getMaxWidth();
+
+
+    /**
+     * @return string
+     */
+    public function getData();
 }
