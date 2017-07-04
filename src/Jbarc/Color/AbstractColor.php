@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 28.02.17
- * Time: 21:43
- */
 
 namespace Jbarc\Color;
-
 
 abstract class AbstractColor implements Color
 {

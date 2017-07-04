@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 18:53
- */
 
 namespace Jbarc\Barcode;
-
 
 use Jbarc\Exception\InvalidArgumentException;
 
@@ -29,12 +22,12 @@ class Barcode1d implements Barcode
     private $bars = [];
 
     /**
-     * @var int
+     * @var float
      */
     private $maxWidth = 0;
 
     /**
-     * @var int
+     * @var float
      */
     private $maxHeight = 1;
 
@@ -101,18 +94,21 @@ class Barcode1d implements Barcode
     /**
      * @param Bar $bar
      *
-     * @return $this
+     * @return Barcode1d
      */
     public function addBar(Bar $bar)
     {
         $this->bars[] = $bar;
+        if ($bar->getHeight() > $this->maxHeight) {
+            $this->maxHeight = $bar->getHeight();
+        }
 
         return $this;
     }
 
 
     /**
-     * @return int
+     * @return float
      */
     public function getMaxWidth()
     {
@@ -121,13 +117,13 @@ class Barcode1d implements Barcode
 
 
     /**
-     * @param int $maxWidth
+     * @param float $maxWidth
      *
-     * @return $this
+     * @return Barcode1d
      */
     public function setMaxWidth($maxWidth)
     {
-        if (!is_int($maxWidth)) {
+        if (!is_numeric($maxWidth)) {
             throw new InvalidArgumentException('$maxWidth must be integer');
         }
         $this->maxWidth = $maxWidth;
@@ -137,13 +133,13 @@ class Barcode1d implements Barcode
 
 
     /**
-     * @param int $increment
+     * @param float $increment
      *
-     * @return $this
+     * @return Barcode1d
      */
     public function increaseMaxWidth($increment)
     {
-        if (!is_int($increment)) {
+        if (!is_numeric($increment)) {
             throw new InvalidArgumentException('$increment must be integer');
         }
         $this->maxWidth += $increment;
@@ -153,7 +149,7 @@ class Barcode1d implements Barcode
 
 
     /**
-     * @return int
+     * @return float
      */
     public function getMaxHeight()
     {
@@ -164,11 +160,11 @@ class Barcode1d implements Barcode
     /**
      * @param int $maxHeight
      *
-     * @return $this
+     * @return Barcode1d
      */
     public function setMaxHeight($maxHeight)
     {
-        if (!is_int($maxHeight)) {
+        if (!is_numeric($maxHeight)) {
             throw new InvalidArgumentException('$maxHeight must be integer');
         }
         $this->maxHeight = $maxHeight;

@@ -1,27 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 23:44
- */
 
 namespace Jbarc\Barcode\Process;
-
 
 use Jbarc\Exception\InvalidArgumentException;
 
 class ZeroPaddingProcess implements Process
 {
-    private $padLength = null;
+    private $padLength;
 
 
     /**
      * @param $padLength
      *
-     * @return $this
+     * @return ZeroPaddingProcess
+     * @throws InvalidArgumentException
      */
-    public function setPadLength($padLength)
+    public function setPadLength($padLength): ZeroPaddingProcess
     {
         if (!is_int($padLength)) {
             throw new InvalidArgumentException('$padLength must be integer');
@@ -38,15 +32,10 @@ class ZeroPaddingProcess implements Process
      *
      * @return string
      */
-    public function getProcessedData($data)
+    public function getProcessedData(string $data): string
     {
         if (null !== $this->padLength) {
-            $data = str_pad(
-                (string) $data,
-                $this->padLength,
-                '0',
-                STR_PAD_LEFT
-            );
+            $data = str_pad($data, $this->padLength, '0', STR_PAD_LEFT);
         }
 
         return $data;

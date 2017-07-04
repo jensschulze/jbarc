@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 20:45
- */
 
 namespace Jbarc\Color;
-
 
 use Jbarc\Exception\InvalidArgumentException;
 use Jbarc\Exception\OutOfBoundsException;
@@ -28,24 +21,6 @@ class RgbColor extends AbstractColor
      * @var int
      */
     private $b;
-
-
-    public function getRed()
-    {
-        return $this->r;
-    }
-
-
-    public function getGreen()
-    {
-        return $this->g;
-    }
-
-
-    public function getBlue()
-    {
-        return $this->b;
-    }
 
 
     public function __construct($r, $g, $b)
@@ -69,7 +44,25 @@ class RgbColor extends AbstractColor
     }
 
 
-    public function __toString()
+    public function getRed(): int
+    {
+        return $this->r;
+    }
+
+
+    public function getGreen(): int
+    {
+        return $this->g;
+    }
+
+
+    public function getBlue(): int
+    {
+        return $this->b;
+    }
+
+
+    public function __toString(): string
     {
         $r = $this->formatHex($this->r);
         $g = $this->formatHex($this->g);

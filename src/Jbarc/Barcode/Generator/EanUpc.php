@@ -1,26 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 23:12
- */
 
 namespace Jbarc\Barcode\Generator;
 
-
 use Jbarc\Barcode\Bar;
 use Jbarc\Barcode\Barcode1d;
+use Jbarc\Exception\InvalidChecksumException;
 
 class EanUpc extends AbstractGenerator1d
 {
-    public function generate($data, Barcode1d $barcode)
+    public function generate(string $data, Barcode1d $barcode): Barcode1d
     {
         $barcode->setRawData($data);
 
         $len  = strlen($data);
         $upce = false;
-        if (6 == $len) {
+        if (6 === $len) {
             $len  = 12; // UPC-A
             $upce = true; // UPC-E mode
         }
@@ -49,14 +43,14 @@ class EanUpc extends AbstractGenerator1d
         if ($r > 0) {
             $r = (10 - $r);
         }
-        if ($code_len == $data_len) {
+        if ($code_len === $data_len) {
             // add check digit
             $data .= $r;
-        } elseif ($r !== intval($data{$data_len})) {
+        } elseif ($r !== (int) $data{$data_len}) {
             // wrong checkdigit
-            return false;
+            throw new InvalidChecksumException();
         }
-        if ($len == 12) {
+        if (12 === $len) {
             // UPC-A
             $data = '0'.$data;
             ++$len;
@@ -64,31 +58,19 @@ class EanUpc extends AbstractGenerator1d
         if ($upce) {
             // convert UPC-A to UPC-E
             $tmp = substr($data, 4, 3);
-            if (($tmp == '000') OR ($tmp == '100') OR ($tmp == '200')) {
+            if (('000' === $tmp) || ('100' === $tmp) || ('200' === $tmp)) {
                 // manufacturer code ends in 000, 100, or 200
-                $upce_code = substr($data, 2, 2).substr(
-                        $data,
-                        9,
-                        3
-                    ).substr($data, 4, 1);
+                $upce_code = substr($data, 2, 2).substr($data,9,3).substr($data, 4, 1);
             } else {
                 $tmp = substr($data, 5, 2);
-                if ($tmp == '00') {
+                if ('00' === $tmp) {
                     // manufacturer code ends in 00
-                    $upce_code = substr($data, 2, 3).substr(
-                            $data,
-                            10,
-                            2
-                        ).'3';
+                    $upce_code = substr($data, 2, 3).substr($data,10,2).'3';
                 } else {
                     $tmp = substr($data, 6, 1);
-                    if ($tmp == '0') {
+                    if ('0' === $tmp) {
                         // manufacturer code ends in 0
-                        $upce_code = substr($data, 2, 4).substr(
-                                $data,
-                                11,
-                                1
-                            ).'4';
+                        $upce_code = substr($data, 2, 4).substr($data,11,1).'4';
                     } else {
                         // manufacturer code does not end in zero
                         $upce_code = substr($data, 2, 5).substr($data, 11, 1);
@@ -183,7 +165,7 @@ class EanUpc extends AbstractGenerator1d
             $seq .= '010101'; // right guard bar
         } else {
             $barcode->setData($data)->setMaxHeight(1);
-            $half_len = intval(ceil($len / 2));
+            $half_len = (int) ceil($len / 2);
             if ($len == 8) {
                 for ($i = 0; $i < $half_len; ++$i) {
                     $seq .= $codes['A'][$data{$i}];

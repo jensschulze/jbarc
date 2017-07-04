@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 22:08
- */
 
 namespace Jbarc\Barcode;
-
 
 interface Barcode
 {
@@ -18,13 +11,13 @@ interface Barcode
 
 
     /**
-     * @return int
+     * @return float
      */
     public function getMaxHeight();
 
 
     /**
-     * @return int
+     * @return float
      */
     public function getMaxWidth();
 

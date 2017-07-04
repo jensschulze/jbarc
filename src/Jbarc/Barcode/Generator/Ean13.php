@@ -1,25 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 23:12
- */
 
 namespace Jbarc\Barcode\Generator;
 
-
 use Jbarc\Barcode\Bar;
 use Jbarc\Barcode\Barcode1d;
+use Jbarc\Barcode\IntermediateSequence;
 use Jbarc\Exception\InvalidChecksumException;
 
 class Ean13 extends AbstractGenerator1d
 {
-    public function generate($data, Barcode1d $barcode)
+    /**
+     * @var float
+     */
+    private $guardBarSize = 1.05;
+
+
+    public function generate(string $data, Barcode1d $barcode): Barcode1d
     {
         $barcode->setRawData($data);
 
-        $len = strlen($data);
+        $len      = strlen($data);
         $data_len = $len - 1;
 
         // calculate check digit
@@ -27,7 +27,7 @@ class Ean13 extends AbstractGenerator1d
         for ($i = 1; $i < $data_len; $i += 2) {
             $sum_a += $data{$i};
         }
-            $sum_a *= 3;
+        $sum_a *= 3;
         $sum_b = 0;
         for ($i = 0; $i < $data_len; $i += 2) {
             $sum_b += ($data{$i});
@@ -41,7 +41,7 @@ class Ean13 extends AbstractGenerator1d
             throw new InvalidChecksumException();
         }
         //Convert digits to bars
-        $codes    = [
+        $codes        = [
             'A' => [ // left odd parity
                      '0' => '0001101',
                      '1' => '0011001',
@@ -79,7 +79,7 @@ class Ean13 extends AbstractGenerator1d
                      '9' => '1110100',
             ],
         ];
-        $parities = [
+        $parities     = [
             '0' => ['A', 'A', 'A', 'A', 'A', 'A'],
             '1' => ['A', 'A', 'B', 'A', 'B', 'B'],
             '2' => ['A', 'A', 'B', 'B', 'A', 'B'],
@@ -91,34 +91,45 @@ class Ean13 extends AbstractGenerator1d
             '8' => ['A', 'B', 'A', 'B', 'B', 'A'],
             '9' => ['A', 'B', 'B', 'A', 'B', 'A'],
         ];
-        $k        = 0;
-        $seq      = '101'; // left guard bar
+        $codeSequence = new IntermediateSequence();
+        $k            = 0;
+        $codeSequence->addValues('101', $this->guardBarSize); // left guard bar
         $barcode->setData($data)->setMaxHeight(1);
-        $half_len = (int) ceil($len / 2);
-            $p = $parities[$data[0]];
-            for ($i = 1; $i < $half_len; ++$i) {
-                $seq .= $codes[$p[$i - 1]][$data{$i}];
-            }
-
-        $seq .= '01010'; // center guard bar
-        for ($i = $half_len; $i < $len; ++$i) {
-            $seq .= $codes['C'][$data{$i}];
+        $halfLength = (int) ceil($len / 2);
+        $p          = $parities[$data[0]];
+        for ($i = 1; $i < $halfLength; ++$i) {
+            $codeSequence->addValues($codes[$p[$i - 1]][$data{$i}]);
         }
-        $seq .= '101'; // right guard bar
 
-        $clen = strlen($seq);
-        $w    = 0;
-        for ($i = 0; $i < $clen; ++$i) {
-            $w += 1;
-            if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq{$i} != $seq{($i + 1)}))) {
-                if ($seq{$i} == '1') {
-                    $t = true; // bar
-                } else {
-                    $t = false; // space
+        $codeSequence->addValues('01010', $this->guardBarSize); // center guard bar
+        for ($i = $halfLength; $i < $len; ++$i) {
+            $codeSequence->addValues($codes['C'][$data{$i}]);
+        }
+        $codeSequence->addValues('101', $this->guardBarSize); // right guard bar
+
+        $sequenceLength = $codeSequence->getLength();
+
+        $width = 0;
+        $i     = 0;
+        foreach ($codeSequence as $index => $element) {
+            ++$width;
+        }
+        for ($i = 0; $i < $sequenceLength; ++$i) {
+            ++$width;
+            if (($i === ($sequenceLength - 1)) || (($i < ($sequenceLength - 1)) && ($codeSequence{$i} !== $codeSequence{$i + 1}))) {
+                $type = Bar::SPACE;
+                if ('1' === $codeSequence{$i}) {
+                    $type = Bar::BAR;
                 }
-                $barcode->addBar(new Bar($t, $w, 1, 0))->increaseMaxWidth($w);
+
+                $height = 1;
+                if (3 < $i && 10 > $i) {
+                    $height = 1.1;
+                }
+
+                $barcode->addBar(new Bar($type, $width, $height, 0))->increaseMaxWidth($width);
                 ++$k;
-                $w = 0;
+                $width = 0;
             }
         }
 

@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.02.17
- * Time: 20:55
- */
 
 namespace Jbarc\Barcode\ImageDriver;
-
 
 use Jbarc\Color\Color;
 use XMLWriter;
@@ -25,12 +18,12 @@ class SvgXmlWriterDriver implements Driver
     private $isFinalized = false;
 
     /**
-     * @var int
+     * @var float
      */
     private $width;
 
     /**
-     * @var int
+     * @var float
      */
     private $height;
 
@@ -46,12 +39,7 @@ class SvgXmlWriterDriver implements Driver
     }
 
 
-    /**
-     * @param int   $width
-     * @param int   $height
-     * @param Color $color
-     */
-    public function initPicture($width, $height, Color $color)
+    public function initPicture(float $width, float $height, Color $color)
     {
         $this->width  = $width;
         $this->height = $height;
@@ -59,7 +47,7 @@ class SvgXmlWriterDriver implements Driver
 
         $this->xmlWriter->openMemory();
         $this->xmlWriter->startDocument('1.0', 'UTF-8', 'no');
-        $this->xmlWriter->startDTD('svg', '-//W3C//DTD SVG 1.1//EN','http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+        $this->xmlWriter->startDTD('svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
         $this->xmlWriter->endDTD();
         $this->xmlWriter->startElement('svg');
         $this->xmlWriter->startAttribute('width');
@@ -84,13 +72,7 @@ class SvgXmlWriterDriver implements Driver
     }
 
 
-    /**
-     * @param int $x1
-     * @param int $y1
-     * @param int $width
-     * @param int $height
-     */
-    public function addRectangle($x1, $y1, $width, $height)
+    public function addRectangle(float $x1, float $y1, float $width, float $height)
     {
         $this->xmlWriter->startElement('rect');
         $this->xmlWriter->startAttribute('x');

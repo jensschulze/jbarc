@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 18:58
- */
 
 namespace Jbarc\Barcode\Renderer;
-
 
 use Jbarc\Barcode\Barcode;
 use Jbarc\Barcode\ImageDriver\Driver;
@@ -27,16 +20,24 @@ class BarcodeRenderer implements Renderer
     }
 
 
-    public function render(Barcode $barcode, $width, $height, Color $color)
+    /**
+     * @param Barcode $barcode
+     * @param float   $relativeWidth
+     * @param float   $height
+     * @param Color   $color
+     *
+     * @return mixed
+     */
+    public function render(Barcode $barcode, float $relativeWidth, float $height, Color $color)
     {
         // calculate image size
-        $totalWidth = ($barcode->getMaxWidth() * $width);
+        $totalWidth = ($barcode->getMaxWidth() * $relativeWidth);
         $this->driver->initPicture($totalWidth, $height, $color);
 
         // print bars
         $x = 0;
         foreach ($barcode->getBars() as $k => $bar) {
-            $barWidth = round(($bar->getWidth() * $width), 3);
+            $barWidth = round(($bar->getWidth() * $relativeWidth), 3);
 
             if ($bar->isBar()) {
                 $barHeight = round(($bar->getHeight() * $height / $barcode->getMaxHeight()), 3);

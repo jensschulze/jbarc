@@ -1,19 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 27.11.16
- * Time: 21:43
- */
 
 namespace Jbarc\Barcode\Process;
-
 
 use Jbarc\Exception\OutOfBoundsException;
 
 class Code39ExtendedProcess implements Process
 {
-    public function getProcessedData($data)
+    public function getProcessedData(string $data): string
     {
         $encode        = [
             chr(0)   => '%U',
@@ -143,7 +136,7 @@ class Code39ExtendedProcess implements Process
             chr(124) => '%Q',
             chr(125) => '%R',
             chr(126) => '%S',
-            chr(127) => '%T'
+            chr(127) => '%T',
         ];
         $processedData = '';
         $clen          = strlen($data);

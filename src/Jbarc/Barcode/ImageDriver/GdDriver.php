@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 20:51
- */
 
 namespace Jbarc\Barcode\ImageDriver;
-
 
 use Jbarc\Color\Color;
 
@@ -24,10 +17,7 @@ class GdDriver implements Driver
     private $foregroundColor;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function initPicture($width, $height, Color $color)
+    public function initPicture(float $width, float $height, Color $color): void
     {
         $this->image = imagecreate($width, $height);
         $bgcol       = imagecolorallocate($this->image, 255, 255, 255);
@@ -36,18 +26,12 @@ class GdDriver implements Driver
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addRectangle($x1, $y1, $width, $height)
+    public function addRectangle(float $x1, float $y1, float $width, float $height): void
     {
         imagefilledrectangle($this->image, $x1, $y1, $width - 1, $height - 1, $this->foregroundColor);
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPicture()
     {
         ob_start();

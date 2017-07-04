@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 17:58
- */
 
 namespace Jbarc\Barcode;
 
@@ -23,48 +17,41 @@ class Bar
     private $type;
 
     /**
-     * @var int
+     * @var float
      */
     private $width;
 
     /**
-     * @var int
+     * @var float
      */
     private $height;
 
     /**
-     * @var int
+     * @var float
      */
     private $topPosition;
 
 
     /**
-     * @param bool $type
-     * @param int  $width
-     * @param int  $height
-     * @param int  $topPosition
+     * @param bool  $type
+     * @param float $width
+     * @param float $height
+     * @param float $topPosition
+     *
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
-    public function __construct($type, $width, $height, $topPosition)
+    public function __construct(bool $type, float $width, float $height, float $topPosition)
     {
-        if (!is_bool($type)) {
-            throw new InvalidArgumentException('$type must be bool');
-        }
-
-        if (!is_int($width)) {
-            throw new InvalidArgumentException('$width must be integer');
-        }
         if ($width < 0) {
             throw new OutOfBoundsException('$width must be greater than 0');
         }
 
-        if (!is_int($height)) {
-            throw new InvalidArgumentException('$height must be integer');
-        }
         if ($height < 0) {
             throw new OutOfBoundsException('$height must be greater than 0');
         }
 
-        if (0 !== $topPosition && 1 !== $topPosition) {
+        if (0.0 !== $topPosition && 1.0 !== $topPosition) {
             throw new InvalidArgumentException('$topPosition must be 0 or 1');
         }
 
@@ -75,55 +62,37 @@ class Bar
     }
 
 
-    /**
-     * @return bool
-     */
-    public function isBar()
+    public function isBar(): bool
     {
         return (Bar::BAR === $this->type);
     }
 
 
-    /**
-     * @return bool
-     */
-    public function isSpace()
+    public function isSpace(): bool
     {
         return (Bar::SPACE === $this->type);
     }
 
 
-    /**
-     * @return bool
-     */
-    public function getType()
+    public function getType(): bool
     {
         return $this->type;
     }
 
 
-    /**
-     * @return int
-     */
-    public function getWidth()
+    public function getWidth(): float
     {
         return $this->width;
     }
 
 
-    /**
-     * @return int
-     */
-    public function getHeight()
+    public function getHeight(): float
     {
         return $this->height;
     }
 
 
-    /**
-     * @return int
-     */
-    public function getTopPosition()
+    public function getTopPosition(): float
     {
         return $this->topPosition;
     }

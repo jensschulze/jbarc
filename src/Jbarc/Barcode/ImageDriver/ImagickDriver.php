@@ -29,10 +29,7 @@ class ImagickDriver implements Driver
     private $bar;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function initPicture($width, $height, Color $color)
+    public function initPicture(float $width, float $height, Color $color): void
     {
         $this->backgroundColor = new \ImagickPixel('rgb(255,255,255');
         $foregroundColor       = new \ImagickPixel(
@@ -46,10 +43,7 @@ class ImagickDriver implements Driver
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addRectangle($x1, $y1, $width, $height)
+    public function addRectangle(float $x1, float $y1, float $width, float $height): void
     {
         $this->bar->rectangle($x1, $y1, $width - 1, $height - 1);
     }
@@ -58,7 +52,7 @@ class ImagickDriver implements Driver
     /**
      * {@inheritdoc}
      */
-    public function getPicture()
+    public function getPicture(): \Imagick
     {
         $this->image->drawImage($this->bar);
 

@@ -1,24 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 27.11.16
- * Time: 21:16
- */
 
 namespace Jbarc\Barcode\Process;
-
 
 use Jbarc\Exception\OutOfBoundsException;
 
 class Code39Checksum implements Process
 {
     /**
-     * {@inheritdoc}
+     * @throws OutOfBoundsException
      */
-    public function getProcessedData($data)
+    public function getProcessedData(string $data): string
     {
-        $chars = array(
+        $chars = [
             '0',
             '1',
             '2',
@@ -61,8 +54,8 @@ class Code39Checksum implements Process
             '$',
             '/',
             '+',
-            '%'
-        );
+            '%',
+        ];
         $sum   = 0;
         $clen  = strlen($data);
         for ($i = 0; $i < $clen; ++$i) {

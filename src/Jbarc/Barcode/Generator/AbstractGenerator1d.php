@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 23:26
- */
 
 namespace Jbarc\Barcode\Generator;
-
 
 use Jbarc\Barcode\Barcode1d;
 use Jbarc\Barcode\Process\Process;
@@ -29,5 +22,5 @@ abstract class AbstractGenerator1d implements Generator1d
     }
 
 
-    public abstract function generate($data, Barcode1d $barcode);
+    public abstract function generate(string $data, Barcode1d $barcode): Barcode1d;
 }

@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 30.11.16
- * Time: 00:47
- */
 
 namespace Jbarc\Barcode\Process;
-
 
 use Jbarc\Exception\InvalidArgumentException;
 
@@ -16,7 +9,7 @@ class ChainProcess implements Process
     /**
      * @var Process[]
      */
-    private $processes = [];
+    private $processes;
 
 
     public function __construct(array $processes = [])
@@ -30,12 +23,7 @@ class ChainProcess implements Process
     }
 
 
-    /**
-     * @param Process $process
-     *
-     * @return $this
-     */
-    public function addProcess(Process $process)
+    public function addProcess(Process $process): ChainProcess
     {
         $this->processes[] = $process;
 
@@ -43,7 +31,7 @@ class ChainProcess implements Process
     }
 
 
-    public function getProcessedData($data)
+    public function getProcessedData(string $data): string
     {
         foreach ($this->processes as $process) {
             $data = $process->getProcessedData($data);

@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 27.11.16
- * Time: 21:26
- */
 
 namespace Jbarc\Barcode;
-
 
 use Jbarc\Barcode\Generator\Code39;
 use Jbarc\Barcode\Generator\Ean13;
@@ -39,7 +32,7 @@ class Factory
      * @return Barcode
      * @throws InvalidArgumentException
      */
-    public static function getBarcode($name, $data)
+    public static function getBarcode($name, $data): Barcode
     {
         switch (strtoupper($name)) {
             case 'C39': { // CODE 39 - ANSI MH10.8M-1983 - USD-3 - 3 of 9.
@@ -179,9 +172,7 @@ class Factory
                 break;
             }
             default:
-                throw new InvalidArgumentException(
-                    "Barcode type '$name' unknown"
-                );
+                throw new InvalidArgumentException("Barcode type '$name' unknown");
                 break;
         }
 
@@ -201,14 +192,8 @@ class Factory
      * @return mixed
      * @throws ExtensionNotFoundException
      */
-    public static function getRenderedImage(
-        Barcode $barcode,
-        $type = 'png',
-        $width = 2,
-        $height = 30,
-        Color $color = null
-    ) {
-
+    public static function getRenderedImage(Barcode $barcode, $type = 'png', $width = 2, $height = 30, Color $color = null)
+    {
         switch (strtolower($type)) {
             case 'png':
                 switch (true) {
@@ -226,7 +211,7 @@ class Factory
                 $renderer = new BarcodeRenderer($driver);
                 break;
             case 'svg':
-                $driver = new SvgXmlWriterDriver(new \XMLWriter());
+                $driver   = new SvgXmlWriterDriver(new \XMLWriter());
                 $renderer = new BarcodeRenderer($driver);
                 break;
             default:

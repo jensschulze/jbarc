@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 27.11.16
- * Time: 21:51
- */
 
 namespace Jbarc\Barcode\Generator;
-
 
 use Jbarc\Barcode\Bar;
 use Jbarc\Barcode\Barcode1d;
@@ -15,7 +8,7 @@ use Jbarc\Exception\OutOfBoundsException;
 
 class Code39 extends AbstractGenerator1d
 {
-    public function generate($data, Barcode1d $barcode)
+    public function generate($data, Barcode1d $barcode): Barcode1d
     {
         $barcode->setRawData($data);
 
@@ -64,10 +57,8 @@ class Code39 extends AbstractGenerator1d
         $chr['%'] = '111313131';
         $chr['*'] = '131131311';
 
-        $data = $this->process->getProcessedData($data);
-
         // add start and stop codes
-        $data = "*{$data}*";
+        $data = "*{$this->process->getProcessedData($data)}*";
 
         $barcode
             ->setData($data)
@@ -85,10 +76,9 @@ class Code39 extends AbstractGenerator1d
             }
 
             for ($j = 0; $j < 9; ++$j) {
-                if (($j % 2) == 0) {
-                    $t = true; // bar
-                } else {
-                    $t = false; // space
+                $t = Bar::SPACE;
+                if (0 === ($j % 2)) {
+                    $t = Bar::BAR;
                 }
                 $w = (int) $chr[$char]{$j};
                 $barcode
