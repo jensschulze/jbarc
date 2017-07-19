@@ -35,7 +35,7 @@ class Barcode1d implements Barcode
     /**
      * @return string
      */
-    public function getData()
+    public function getData(): string
     {
         return $this->data;
     }
@@ -44,9 +44,10 @@ class Barcode1d implements Barcode
     /**
      * @var string $data
      *
-     * @return $this
+     * @return Barcode1d
+     * @throws InvalidArgumentException
      */
-    public function setData($data)
+    public function setData($data): Barcode1d
     {
         if (!is_string($data)) {
             throw new InvalidArgumentException('$data must be a string');
@@ -60,7 +61,7 @@ class Barcode1d implements Barcode
     /**
      * @return string
      */
-    public function getRawData()
+    public function getRawData(): string
     {
         return $this->rawData;
     }
@@ -69,9 +70,10 @@ class Barcode1d implements Barcode
     /**
      * @var string $rawData
      *
-     * @return $this
+     * @return Barcode1d
+     * @throws InvalidArgumentException
      */
-    public function setRawData($rawData)
+    public function setRawData($rawData): Barcode1d
     {
         if (!is_string($rawData)) {
             throw new InvalidArgumentException('$rawData must be a string');
@@ -85,7 +87,7 @@ class Barcode1d implements Barcode
     /**
      * @return Bar[]
      */
-    public function getBars()
+    public function getBars(): array
     {
         return $this->bars;
     }
@@ -96,12 +98,11 @@ class Barcode1d implements Barcode
      *
      * @return Barcode1d
      */
-    public function addBar(Bar $bar)
+    public function addBar(Bar $bar): Barcode1d
     {
+        $this->maxWidth += $bar->getWidth();
+        $this->notifyHeight($bar->getHeight());
         $this->bars[] = $bar;
-        if ($bar->getHeight() > $this->maxHeight) {
-            $this->maxHeight = $bar->getHeight();
-        }
 
         return $this;
     }
@@ -110,7 +111,7 @@ class Barcode1d implements Barcode
     /**
      * @return float
      */
-    public function getMaxWidth()
+    public function getMaxWidth(): float
     {
         return $this->maxWidth;
     }
@@ -120,8 +121,9 @@ class Barcode1d implements Barcode
      * @param float $maxWidth
      *
      * @return Barcode1d
+     * @throws InvalidArgumentException
      */
-    public function setMaxWidth($maxWidth)
+    public function setMaxWidth($maxWidth): Barcode1d
     {
         if (!is_numeric($maxWidth)) {
             throw new InvalidArgumentException('$maxWidth must be integer');
@@ -136,8 +138,9 @@ class Barcode1d implements Barcode
      * @param float $increment
      *
      * @return Barcode1d
+     * @throws InvalidArgumentException
      */
-    public function increaseMaxWidth($increment)
+    public function increaseMaxWidth($increment): Barcode1d
     {
         if (!is_numeric($increment)) {
             throw new InvalidArgumentException('$increment must be integer');
@@ -151,9 +154,19 @@ class Barcode1d implements Barcode
     /**
      * @return float
      */
-    public function getMaxHeight()
+    public function getMaxHeight(): float
     {
         return $this->maxHeight;
+    }
+
+
+    public function notifyHeight($height): Barcode1d
+    {
+        if ($height > $this->maxHeight) {
+            $this->maxHeight = $height;
+        }
+
+        return $this;
     }
 
 
@@ -161,8 +174,9 @@ class Barcode1d implements Barcode
      * @param int $maxHeight
      *
      * @return Barcode1d
+     * @throws InvalidArgumentException
      */
-    public function setMaxHeight($maxHeight)
+    public function setMaxHeight($maxHeight): Barcode1d
     {
         if (!is_numeric($maxHeight)) {
             throw new InvalidArgumentException('$maxHeight must be integer');

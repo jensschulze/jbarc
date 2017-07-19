@@ -81,9 +81,7 @@ class Code39 extends AbstractGenerator1d
                     $t = Bar::BAR;
                 }
                 $w = (int) $chr[$char]{$j};
-                $barcode
-                    ->addBar(new Bar($t, $w, 1, 0))
-                    ->increaseMaxWidth($w);
+                $barcode->addBar(new Bar($t, $w, 1, 0));
                 ++$k;
             }
 

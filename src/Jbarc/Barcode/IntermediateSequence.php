@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode;
 
+use Jbarc\Exception\InvalidArgumentException;
+
 /**
  * Class Intermediate
  * Jens Schulze, github.com/jensschulze
@@ -21,7 +23,7 @@ class IntermediateSequence implements \Iterator
     private $position = 0;
 
 
-    public function addValue(int $value, float $height = 1.0): IntermediateSequence
+    public function addValue(string $value, float $height = 1.0): IntermediateSequence
     {
         $this->sequence[] = new IntermediateSequenceElement($value, $height);
 
@@ -41,6 +43,16 @@ class IntermediateSequence implements \Iterator
     public function getLength(): int
     {
         return count($this->sequence);
+    }
+
+
+    public function getElement(int $position): IntermediateSequenceElement
+    {
+        if (!isset($this->sequence[$position])) {
+            throw new InvalidArgumentException("Element with index '$position' does not exist'");
+        }
+
+        return $this->sequence[$position];
     }
 
 

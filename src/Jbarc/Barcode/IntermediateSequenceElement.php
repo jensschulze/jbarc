@@ -11,7 +11,7 @@ namespace Jbarc\Barcode;
 class IntermediateSequenceElement
 {
     /**
-     * @var int
+     * @var string
      */
     private $value;
 
@@ -21,7 +21,7 @@ class IntermediateSequenceElement
     private $height;
 
 
-    public function __construct(int $value, float $height)
+    public function __construct(string $value, float $height)
     {
         $this->value  = $value;
         $this->height = $height;
@@ -29,9 +29,9 @@ class IntermediateSequenceElement
 
 
     /**
-     * @return int
+     * @return string
      */
-    public function getValue(): int
+    public function getValue(): string
     {
         return $this->value;
     }

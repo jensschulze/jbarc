@@ -192,7 +192,7 @@ class EanUpc extends AbstractGenerator1d
                 } else {
                     $t = false; // space
                 }
-                $barcode->addBar(new Bar($t, $w, 1, 0))->increaseMaxWidth($w);
+                $barcode->addBar(new Bar($t, $w, 1, 0));
                 ++$k;
                 $w = 0;
             }

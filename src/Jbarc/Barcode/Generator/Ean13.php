@@ -12,7 +12,7 @@ class Ean13 extends AbstractGenerator1d
     /**
      * @var float
      */
-    private $guardBarSize = 1.05;
+    private $guardBarSize = 1.1;
 
 
     public function generate(string $data, Barcode1d $barcode): Barcode1d
@@ -92,7 +92,6 @@ class Ean13 extends AbstractGenerator1d
             '9' => ['A', 'B', 'B', 'A', 'B', 'A'],
         ];
         $codeSequence = new IntermediateSequence();
-        $k            = 0;
         $codeSequence->addValues('101', $this->guardBarSize); // left guard bar
         $barcode->setData($data)->setMaxHeight(1);
         $halfLength = (int) ceil($len / 2);
@@ -109,27 +108,19 @@ class Ean13 extends AbstractGenerator1d
 
         $sequenceLength = $codeSequence->getLength();
 
-        $width = 0;
-        $i     = 0;
+        $barWidth = 0;
         foreach ($codeSequence as $index => $element) {
-            ++$width;
-        }
-        for ($i = 0; $i < $sequenceLength; ++$i) {
-            ++$width;
-            if (($i === ($sequenceLength - 1)) || (($i < ($sequenceLength - 1)) && ($codeSequence{$i} !== $codeSequence{$i + 1}))) {
+            ++$barWidth;
+            if (($index === ($sequenceLength - 1)) || (($i < ($sequenceLength - 1)) && ($codeSequence->getElement($index)->getValue() !== $codeSequence->getElement($index + 1)->getValue()))) {
                 $type = Bar::SPACE;
-                if ('1' === $codeSequence{$i}) {
+                if ('1' === $codeSequence->getElement($index)->getValue()) {
                     $type = Bar::BAR;
                 }
 
-                $height = 1;
-                if (3 < $i && 10 > $i) {
-                    $height = 1.1;
-                }
+                $height = $codeSequence->getElement($index)->getHeight();
 
-                $barcode->addBar(new Bar($type, $width, $height, 0))->increaseMaxWidth($width);
-                ++$k;
-                $width = 0;
+                $barcode->addBar(new Bar($type, $barWidth, $height, 0));
+                $barWidth = 0;
             }
         }
 
