@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode\Generator;
 
 use Jbarc\Barcode\Bar;
@@ -8,7 +10,7 @@ use Jbarc\Exception\OutOfBoundsException;
 
 class Code39 extends AbstractGenerator1d
 {
-    public function generate($data, Barcode1d $barcode): Barcode1d
+    public function generate(string $data, Barcode1d $barcode): Barcode1d
     {
         $barcode->setRawData($data);
 

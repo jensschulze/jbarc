@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 29.11.16
- * Time: 22:27
- */
+
+declare(strict_types=1);
 
 namespace Jbarc\Exception;
-
 
 class ExtensionNotFoundException extends \Exception
 {

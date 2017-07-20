@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode\Generator;
 
 use Jbarc\Barcode\Bar;
@@ -111,7 +113,7 @@ class Ean13 extends AbstractGenerator1d
         $barWidth = 0;
         foreach ($codeSequence as $index => $element) {
             ++$barWidth;
-            if (($index === ($sequenceLength - 1)) || (($i < ($sequenceLength - 1)) && ($codeSequence->getElement($index)->getValue() !== $codeSequence->getElement($index + 1)->getValue()))) {
+            if (($index === ($sequenceLength - 1)) || (($index < ($sequenceLength - 1)) && ($codeSequence->getElement($index)->getValue() !== $codeSequence->getElement($index + 1)->getValue()))) {
                 $type = Bar::SPACE;
                 if ('1' === $codeSequence->getElement($index)->getValue()) {
                     $type = Bar::BAR;

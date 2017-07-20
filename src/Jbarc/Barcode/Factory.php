@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode;
 
 use Jbarc\Barcode\Generator\Code39;
@@ -190,6 +192,7 @@ class Factory
      * @param Color   $color
      *
      * @return mixed
+     * @throws InvalidArgumentException
      * @throws ExtensionNotFoundException
      */
     public static function getRenderedImage(Barcode $barcode, $type = 'png', $width = 2, $height = 30, Color $color = null)
@@ -205,7 +208,7 @@ class Factory
                         break;
                     default:
                         throw new ExtensionNotFoundException(
-                            'Did not find Imagick or GD PHP extension'
+                            'Did not find Imagick nor GD PHP extension'
                         );
                 }
                 $renderer = new BarcodeRenderer($driver);

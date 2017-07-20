@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Color;
 
 use Jbarc\Exception\InvalidArgumentException;

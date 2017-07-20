@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode\Generator;
 
 use Jbarc\Barcode\Barcode1d;
@@ -22,5 +24,5 @@ abstract class AbstractGenerator1d implements Generator1d
     }
 
 
-    public abstract function generate(string $data, Barcode1d $barcode): Barcode1d;
+    abstract public function generate(string $data, Barcode1d $barcode): Barcode1d;
 }

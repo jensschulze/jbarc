@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Color;
 
 abstract class AbstractColor implements Color
 {
-
-    public abstract function getRed();
-
-
-    public abstract function getGreen();
+    abstract public function getRed();
 
 
-    public abstract function getBlue();
+    abstract public function getGreen();
 
 
-    public abstract function __toString();
+    abstract public function getBlue();
+
+
+    abstract public function __toString();
 
 
     protected function formatHex($decimalValue)

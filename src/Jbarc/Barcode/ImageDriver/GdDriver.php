@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode\ImageDriver;
 
 use Jbarc\Color\Color;
@@ -28,7 +30,7 @@ class GdDriver implements Driver
 
     public function addRectangle(float $x1, float $y1, float $width, float $height): void
     {
-        imagefilledrectangle($this->image, $x1, $y1, $width - 1, $height - 1, $this->foregroundColor);
+        imagefilledrectangle($this->image, $x1, $y1, $x1 + $width - 1, $y1 + $height - 1, $this->foregroundColor);
     }
 
 

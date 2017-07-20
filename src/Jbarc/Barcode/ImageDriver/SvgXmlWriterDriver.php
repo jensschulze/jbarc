@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jbarc\Barcode\ImageDriver;
 
 use Jbarc\Color\Color;

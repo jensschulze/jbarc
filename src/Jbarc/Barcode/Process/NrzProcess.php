@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Jbarc\Barcode\Process\Process;
+namespace Jbarc\Barcode\Process;
 
 class NrzProcess implements Process
 {

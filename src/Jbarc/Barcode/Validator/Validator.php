@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 18:55
- */
+
+declare(strict_types=1);
 
 namespace Jbarc\Barcode\Validator;
-
 
 interface Validator
 {

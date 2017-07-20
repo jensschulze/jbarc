@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jensschulze
- * Date: 26.11.16
- * Time: 21:05
- */
+
+declare(strict_types=1);
 
 namespace Jbarc\Barcode\ImageDriver;
-
 
 use Jbarc\Color\Color;
 
@@ -45,7 +40,7 @@ class ImagickDriver implements Driver
 
     public function addRectangle(float $x1, float $y1, float $width, float $height): void
     {
-        $this->bar->rectangle($x1, $y1, $width - 1, $height - 1);
+        $this->bar->rectangle($x1, $y1, $x1 + $width - 1, $y1 + $height - 1);
     }
 
 
