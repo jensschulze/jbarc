@@ -1,5 +1,5 @@
-Jbarc
-====
+# Jbarc
+
 Master: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=master)](https://travis-ci.org/jensschulze/jbarc)
 
 Develop: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=develop)](https://travis-ci.org/jensschulze/jbarc)
@@ -16,3 +16,14 @@ Develop: [![Build Status](https://travis-ci.org/jensschulze/jbarc.svg?branch=dev
 
 This barcode library is basically the barcode part of the TCPDF library by Nicla Ansuni. The main objective is to refactor, and then further improve it.  
 
+## Barcode formats
+* EAN 13
+
+## Output formats
+* PNG
+* SVG
+
+## Example
+    $barcode = \Jbarc\Barcode\Factory::getBarcode('EAN13', '5901234123457');
+    $image = \Jbarc\Barcode\Factory::getRenderedImage($barcode, 'png', 2, 100);
+    file_put_contents(__DIR__ . '/testEan13.png', $image);
