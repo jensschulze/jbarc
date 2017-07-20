@@ -34,19 +34,19 @@ class BarcodeRenderer implements Renderer
     {
         // calculate image size
         $totalWidth = ($barcode->getMaxWidth() * $relativeWidth);
-        $this->driver->initPicture($totalWidth, $height, $color);
+        $this->driver->initPicture((int) $totalWidth, (int) $height, $color);
 
         // print bars
         $x = 0;
         foreach ($barcode->getBars() as $k => $bar) {
-            $barWidth = round(($bar->getWidth() * $relativeWidth), 3);
+            $barWidth = (int) round($bar->getWidth() * $relativeWidth, 3);
 
             if ($bar->isBar()) {
-                $barHeight = round(($bar->getHeight() * $height / $barcode->getMaxHeight()), 3);
-                $y         = round(($bar->getTopPosition() * $height / $barcode->getMaxHeight()), 3);
+                $barHeight = (int) round($bar->getHeight() * $height / $barcode->getMaxHeight(), 3);
+                $y         = (int) round($bar->getTopPosition() * $height / $barcode->getMaxHeight(), 3);
 
                 // draw a vertical bar
-                $this->driver->addRectangle($x, $y, ($barWidth), ($barHeight));
+                $this->driver->addRectangle($x, $y, $barWidth, $barHeight);
             }
 
             $x += $barWidth;

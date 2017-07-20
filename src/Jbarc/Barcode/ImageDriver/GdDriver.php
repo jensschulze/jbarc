@@ -19,7 +19,7 @@ class GdDriver implements Driver
     private $foregroundColor;
 
 
-    public function initPicture(float $width, float $height, Color $color): void
+    public function initPicture(int $width, int $height, Color $color): void
     {
         $this->image = imagecreate($width, $height);
         $bgcol       = imagecolorallocate($this->image, 255, 255, 255);
@@ -28,7 +28,7 @@ class GdDriver implements Driver
     }
 
 
-    public function addRectangle(float $x1, float $y1, float $width, float $height): void
+    public function addRectangle(int $x1, int $y1, int $width, int $height): void
     {
         imagefilledrectangle($this->image, $x1, $y1, $x1 + $width - 1, $y1 + $height - 1, $this->foregroundColor);
     }
