@@ -27,3 +27,6 @@ This barcode library is basically the barcode part of the TCPDF library by Nicla
     $barcode = \Jbarc\Barcode\Factory::getBarcode('EAN13', '5901234123457');
     $image = \Jbarc\Barcode\Factory::getRenderedImage($barcode, 'png', 2, 100);
     file_put_contents(__DIR__ . '/testEan13.png', $image);
+
+## Legal
+OCR-B font from https://github.com/opensourcedesign/fonts
