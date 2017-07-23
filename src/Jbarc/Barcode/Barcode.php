@@ -28,4 +28,10 @@ interface Barcode
      * @return string
      */
     public function getData(): string;
+
+
+    /**
+     * @return TextElement[]
+     */
+    public function getText(): array;
 }

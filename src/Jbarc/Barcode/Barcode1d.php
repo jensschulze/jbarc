@@ -33,6 +33,11 @@ class Barcode1d implements Barcode
      */
     private $maxHeight = 1;
 
+    /**
+     * @var TextElement[]
+     */
+    private $text;
+
 
     /**
      * @return string
@@ -184,6 +189,29 @@ class Barcode1d implements Barcode
             throw new InvalidArgumentException('$maxHeight must be integer');
         }
         $this->maxHeight = $maxHeight;
+
+        return $this;
+    }
+
+
+    /**
+     * @return TextElement[]
+     */
+    public function getText(): array
+    {
+        return $this->text;
+    }
+
+
+    /**
+     * @param string $text
+     *
+     * @return Barcode1d
+     */
+    public function addText(string $text, int $x, int $y): Barcode1d
+    {
+        $textElement = new TextElement($text, $x, $y);
+        $this->text[] = $textElement;
 
         return $this;
     }

@@ -9,5 +9,5 @@ use Jbarc\Color\Color;
 
 interface Renderer
 {
-    public function render(Barcode $barcode, float $relativeWidth, float $height, Color $color);
+    public function render(Barcode $barcode, int $smallestBarWidth, float $height, Color $color);
 }

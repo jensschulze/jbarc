@@ -24,22 +24,22 @@ class BarcodeRenderer implements Renderer
 
     /**
      * @param Barcode $barcode
-     * @param float   $relativeWidth
+     * @param int     $smallestBarWidth
      * @param float   $height
      * @param Color   $color
      *
      * @return mixed
      */
-    public function render(Barcode $barcode, float $relativeWidth, float $height, Color $color)
+    public function render(Barcode $barcode, int $smallestBarWidth, float $height, Color $color)
     {
         // calculate image size
-        $totalWidth = ($barcode->getMaxWidth() * $relativeWidth);
+        $totalWidth = ($barcode->getMaxWidth() * $smallestBarWidth);
         $this->driver->initPicture((int) $totalWidth, (int) $height, $color);
 
         // print bars
         $x = 0;
         foreach ($barcode->getBars() as $k => $bar) {
-            $barWidth = (int) round($bar->getWidth() * $relativeWidth, 3);
+            $barWidth = (int) round($bar->getWidth() * $smallestBarWidth, 3);
 
             if ($bar->isBar()) {
                 $barHeight = (int) round($bar->getHeight() * $height / $barcode->getMaxHeight(), 3);
@@ -50,6 +50,10 @@ class BarcodeRenderer implements Renderer
             }
 
             $x += $barWidth;
+        }
+
+        foreach ($barcode->getText() as $textElement) {
+            $this->driver->addText($textElement->getText(), $textElement->getX(), $textElement->getY());
         }
 
         return $this->driver->getPicture();

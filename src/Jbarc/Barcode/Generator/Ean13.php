@@ -126,6 +126,10 @@ class Ean13 extends AbstractGenerator1d
             }
         }
 
+        $barcode->addText($barcode->getData(){0}, 0, 0);
+        $barcode->addText(substr($barcode->getData(), 1, 5), 15, 0);
+        $barcode->addText(substr($barcode->getData(), 6, 5), 100, 0);
+
         return $barcode;
     }
 }

@@ -14,5 +14,8 @@ interface Driver
     public function addRectangle(int $x1, int $y1, int $width, int $height);
 
 
+    public function addText(string $text, int $x, int $y);
+
+
     public function getPicture();
 }

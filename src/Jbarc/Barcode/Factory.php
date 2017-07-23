@@ -187,7 +187,7 @@ class Factory
     /**
      * @param string  $type
      * @param Barcode $barcode
-     * @param int     $width
+     * @param int     $smallestBarWidth
      * @param int     $height
      * @param Color   $color
      *
@@ -195,39 +195,34 @@ class Factory
      * @throws InvalidArgumentException
      * @throws ExtensionNotFoundException
      */
-    public static function getRenderedImage(Barcode $barcode, $type = 'png', $width = 2, $height = 30, Color $color = null)
+    public static function getRenderedImage(Barcode $barcode, $type = 'png', $smallestBarWidth = 2, $height = 30, Color $color = null)
     {
         switch (strtolower($type)) {
             case 'png':
                 switch (true) {
                     case (extension_loaded('imagick')):
-                        $driver = new ImagickDriver;
+                        $driver = new ImagickDriver([]);
                         break;
                     case (function_exists('imagecreate')):
-                        $driver = new GdDriver;
+                        $driver = new GdDriver([]);
                         break;
                     default:
-                        throw new ExtensionNotFoundException(
-                            'Did not find Imagick nor GD PHP extension'
-                        );
+                        throw new ExtensionNotFoundException('Did not find Imagick nor GD PHP extension');
                 }
-                $renderer = new BarcodeRenderer($driver);
                 break;
             case 'svg':
                 $driver   = new SvgXmlWriterDriver(new \XMLWriter());
-                $renderer = new BarcodeRenderer($driver);
                 break;
             default:
-                throw new InvalidArgumentException(
-                    "Invalid output type '$type'"
-                );
+                throw new InvalidArgumentException("Invalid output type '$type'");
         }
+
+        $renderer = new BarcodeRenderer($driver);
 
         if (null === $color) {
             $color = new RgbColor(0, 0, 0);
         }
-        $image = $renderer->render($barcode, $width, $height, $color);
 
-        return $image;
+        return $renderer->render($barcode, $smallestBarWidth, $height, $color);
     }
 }
