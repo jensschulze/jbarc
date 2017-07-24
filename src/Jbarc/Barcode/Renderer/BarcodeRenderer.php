@@ -32,6 +32,11 @@ class BarcodeRenderer implements Renderer
      */
     public function render(Barcode $barcode, int $smallestBarWidth, float $height, Color $color)
     {
+        $barcodeHeight = $height;
+        if (!empty($barcode->getText())) {
+            // FIXME: This must not be hardcoded. There has to be a configurable Layout object we can query here
+            $barcodeHeight -= 10;
+        }
         // calculate image size
         $totalWidth = ($barcode->getMaxWidth() * $smallestBarWidth);
         $this->driver->initPicture((int) $totalWidth, (int) $height, $color);
@@ -42,8 +47,8 @@ class BarcodeRenderer implements Renderer
             $barWidth = (int) round($bar->getWidth() * $smallestBarWidth, 3);
 
             if ($bar->isBar()) {
-                $barHeight = (int) round($bar->getHeight() * $height / $barcode->getMaxHeight(), 3);
-                $y         = (int) round($bar->getTopPosition() * $height / $barcode->getMaxHeight(), 3);
+                $barHeight = (int) round($bar->getHeight() * $barcodeHeight / $barcode->getMaxHeight());
+                $y         = (int) round($bar->getTopPosition() * $barcodeHeight / $barcode->getMaxHeight());
 
                 // draw a vertical bar
                 $this->driver->addRectangle($x, $y, $barWidth, $barHeight);

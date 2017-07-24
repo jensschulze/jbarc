@@ -14,7 +14,7 @@ class Ean13 extends AbstractGenerator1d
     /**
      * @var float
      */
-    private $guardBarSize = 1.1;
+    private $defaultBarSize = .9;
 
 
     public function generate(string $data, Barcode1d $barcode): Barcode1d
@@ -94,19 +94,19 @@ class Ean13 extends AbstractGenerator1d
             '9' => ['A', 'B', 'B', 'A', 'B', 'A'],
         ];
         $codeSequence = new IntermediateSequence();
-        $codeSequence->addValues('101', $this->guardBarSize); // left guard bar
+        $codeSequence->addValues('101'); // left guard bar
         $barcode->setData($data)->setMaxHeight(1);
         $halfLength = (int) ceil($len / 2);
         $p          = $parities[$data[0]];
         for ($i = 1; $i < $halfLength; ++$i) {
-            $codeSequence->addValues($codes[$p[$i - 1]][$data{$i}]);
+            $codeSequence->addValues($codes[$p[$i - 1]][$data{$i}], $this->defaultBarSize);
         }
 
-        $codeSequence->addValues('01010', $this->guardBarSize); // center guard bar
+        $codeSequence->addValues('01010'); // center guard bar
         for ($i = $halfLength; $i < $len; ++$i) {
-            $codeSequence->addValues($codes['C'][$data{$i}]);
+            $codeSequence->addValues($codes['C'][$data{$i}], $this->defaultBarSize);
         }
-        $codeSequence->addValues('101', $this->guardBarSize); // right guard bar
+        $codeSequence->addValues('101'); // right guard bar
 
         $sequenceLength = $codeSequence->getLength();
 
