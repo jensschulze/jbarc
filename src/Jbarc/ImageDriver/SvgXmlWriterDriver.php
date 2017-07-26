@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jbarc\Barcode\ImageDriver;
+namespace Jbarc\ImageDriver;
 
 use Jbarc\Color\Color;
 use XMLWriter;

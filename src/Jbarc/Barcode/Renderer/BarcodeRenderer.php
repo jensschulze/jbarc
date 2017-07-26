@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Jbarc\Barcode\Renderer;
 
 use Jbarc\Barcode\Entity\Barcode;
-use Jbarc\Barcode\ImageDriver\Driver;
 use Jbarc\Color\Color;
+use Jbarc\ImageDriver\Driver;
 
 class BarcodeRenderer implements Renderer
 {

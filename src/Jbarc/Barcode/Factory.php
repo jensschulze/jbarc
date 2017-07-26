@@ -8,9 +8,6 @@ use Jbarc\Barcode\Entity\Barcode;
 use Jbarc\Barcode\Entity\Barcode1d;
 use Jbarc\Barcode\Generator\Code39;
 use Jbarc\Barcode\Generator\Ean13;
-use Jbarc\Barcode\ImageDriver\GdDriver;
-use Jbarc\Barcode\ImageDriver\ImagickDriver;
-use Jbarc\Barcode\ImageDriver\SvgXmlWriterDriver;
 use Jbarc\Barcode\Process\ChainProcess;
 use Jbarc\Barcode\Process\Code39Checksum;
 use Jbarc\Barcode\Process\Code39ExtendedProcess;
@@ -21,6 +18,9 @@ use Jbarc\Color\Color;
 use Jbarc\Color\RgbColor;
 use Jbarc\Exception\ExtensionNotFoundException;
 use Jbarc\Exception\InvalidArgumentException;
+use Jbarc\ImageDriver\GdDriver;
+use Jbarc\ImageDriver\ImagickDriver;
+use Jbarc\ImageDriver\SvgXmlWriterDriver;
 
 class Factory
 {

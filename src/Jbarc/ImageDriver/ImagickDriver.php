@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jbarc\Barcode\ImageDriver;
+namespace Jbarc\ImageDriver;
 
 use Jbarc\Color\Color;
 use Jbarc\Exception\FileNotFoundException;
@@ -52,7 +52,7 @@ class ImagickDriver implements Driver
 
     public function __construct(array $textSetting = [])
     {
-        $this->textSettings['font'] = __DIR__ . '/../../../../assets/OCRB.otf';
+        $this->textSettings['font'] = __DIR__ . '/../../../assets/OCRB.otf';
         foreach ($this->textSettings as $key => $value) {
             if (array_key_exists($key, $textSetting)) {
                 $this->textSettings[$key] = $textSetting;
