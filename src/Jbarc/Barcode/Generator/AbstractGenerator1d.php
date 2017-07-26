@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode\Generator;
 
-use Jbarc\Barcode\Barcode1d;
+use Jbarc\Barcode\Entity\Barcode1d;
 use Jbarc\Barcode\Process\Process;
 
 abstract class AbstractGenerator1d implements Generator1d

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode\Generator;
 
-use Jbarc\Barcode\Bar;
-use Jbarc\Barcode\Barcode1d;
-use Jbarc\Barcode\IntermediateSequence;
+use Jbarc\Barcode\Entity\Bar;
+use Jbarc\Barcode\Entity\Barcode1d;
+use Jbarc\Barcode\Entity\IntermediateSequence;
+use Jbarc\Exception\InvalidArgumentException;
 use Jbarc\Exception\InvalidChecksumException;
 
 class Ean13 extends AbstractGenerator1d
@@ -17,6 +18,14 @@ class Ean13 extends AbstractGenerator1d
     private $defaultBarSize = .9;
 
 
+    /**
+     * @param string    $data
+     * @param Barcode1d $barcode
+     *
+     * @return Barcode1d
+     * @throws InvalidArgumentException
+     * @throws InvalidChecksumException
+     */
     public function generate(string $data, Barcode1d $barcode): Barcode1d
     {
         $barcode->setRawData($data);

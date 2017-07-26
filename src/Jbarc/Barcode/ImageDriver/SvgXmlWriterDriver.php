@@ -41,7 +41,7 @@ class SvgXmlWriterDriver implements Driver
     }
 
 
-    public function initPicture(float $width, float $height, Color $color)
+    public function initPicture(int $width, int $height, Color $color): void
     {
         $this->width  = $width;
         $this->height = $height;
@@ -74,7 +74,7 @@ class SvgXmlWriterDriver implements Driver
     }
 
 
-    public function addRectangle(float $x1, float $y1, float $width, float $height)
+    public function addRectangle(int $x1, int $y1, int $width, int $height): void
     {
         $this->xmlWriter->startElement('rect');
         $this->xmlWriter->startAttribute('x');
@@ -115,5 +115,11 @@ class SvgXmlWriterDriver implements Driver
             $this->xmlWriter->endElement(); // svg
             $this->xmlWriter->endDocument();
         }
+    }
+
+
+    public function addText(string $text, int $x, int $y): void
+    {
+        // TODO: Implement addText() method.
     }
 }

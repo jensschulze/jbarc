@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jbarc\Barcode;
+namespace Jbarc\Barcode\Entity;
 
 use Jbarc\Exception\InvalidArgumentException;
 use Jbarc\Exception\OutOfBoundsException;

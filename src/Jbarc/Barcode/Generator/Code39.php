@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode\Generator;
 
-use Jbarc\Barcode\Bar;
-use Jbarc\Barcode\Barcode1d;
+use Jbarc\Barcode\Entity\Bar;
+use Jbarc\Barcode\Entity\Barcode1d;
 use Jbarc\Exception\OutOfBoundsException;
 
 class Code39 extends AbstractGenerator1d

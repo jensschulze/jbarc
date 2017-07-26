@@ -43,4 +43,10 @@ class GdDriver implements Driver
 
         return $imagedata;
     }
+
+
+    public function addText(string $text, int $x, int $y): void
+    {
+        // TODO: Implement addText() method.
+    }
 }

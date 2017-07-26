@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jbarc\Barcode;
+namespace Jbarc\Barcode\Entity;
 
 use Jbarc\Exception\InvalidArgumentException;
 
@@ -205,12 +205,14 @@ class Barcode1d implements Barcode
 
     /**
      * @param string $text
+     * @param int    $x
+     * @param int    $y
      *
      * @return Barcode1d
      */
     public function addText(string $text, int $x, int $y): Barcode1d
     {
-        $textElement = new TextElement($text, $x, $y);
+        $textElement  = new TextElement($text, $x, $y);
         $this->text[] = $textElement;
 
         return $this;

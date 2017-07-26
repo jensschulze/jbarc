@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode\Renderer;
 
-use Jbarc\Barcode\Barcode;
+use Jbarc\Barcode\Entity\Barcode;
 use Jbarc\Color\Color;
 
 interface Renderer

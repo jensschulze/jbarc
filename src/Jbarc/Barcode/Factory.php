@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jbarc\Barcode;
 
+use Jbarc\Barcode\Entity\Barcode;
+use Jbarc\Barcode\Entity\Barcode1d;
 use Jbarc\Barcode\Generator\Code39;
 use Jbarc\Barcode\Generator\Ean13;
 use Jbarc\Barcode\ImageDriver\GdDriver;
@@ -22,11 +24,6 @@ use Jbarc\Exception\InvalidArgumentException;
 
 class Factory
 {
-    private function __constructor()
-    {
-    }
-
-
     /**
      * @param string $name
      * @param string $data
